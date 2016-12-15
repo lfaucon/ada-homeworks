@@ -24,14 +24,4 @@ def rawEmailCleaner(doc):
     return rawText
 
 def processText(doc):
-    # Keeps only the lines that do not contain one of the words in the list toRemove
-    filtered = "\n".join([line for line in doc.split('\n') if not sum([word in line for word in toRemove])])
-    # Tokenize
-    tokens = tokenizer.tokenize(filtered)
-    # Removes all uppercase words
-    noUpper = [word.lower() for word in tokens if not word==word.upper()]
-    # Removes stop words
-    stopped = [ word for word in noUpper if not word in en_stop and len(word)>1 ]
-    # Performs stemming
-    lemmatized = [ wnl.lemmatize(word) for word in stopped ]
-    return lemmatized
+    return nlpPipeLine(rawEmailCleaner(doc))
